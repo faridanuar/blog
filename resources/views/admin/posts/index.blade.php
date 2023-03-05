@@ -8,6 +8,10 @@
                             <tbody class="bg-white divide-y divide-gray-200">
                                 @foreach ($posts as $post)
                                     <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                            <img src="{{ ($post->thumbnail)? asset('storage/' . $post->thumbnail) : '/images/no-avatar.png' }}" alt="avatar_image" width="80" height="80" class="rounded-xl">
+                                        </td>
+
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="flex items-center">
                                                 <div class="text-sm font-medium text-gray-900">
