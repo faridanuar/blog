@@ -3,7 +3,7 @@
 <x-panel class="bg-gray-50">
     <article class="flex space-x-4">
         <div class="flex-shrink-0">
-            <x-avatar :avatar="(isset($comment->user->avatar))? $comment->user->avatar : null" />
+            <x-avatar :avatar="(isset($comment->author->avatar))? $comment->author->avatar : null" />
         </div>
 
         <div>

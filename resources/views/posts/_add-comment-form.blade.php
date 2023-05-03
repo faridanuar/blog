@@ -4,7 +4,7 @@
             @csrf
 
             <header class="flex items-center">
-                <x-avatar :avatar="(isset($request->user->avatar))? $request->user->avatar : null" />
+                <x-avatar :avatar="(isset(request()->user()->avatar))? request()->user()->avatar : null" />
 
                 <h2 class="ml-4">Want to participate?</h2>
             </header>

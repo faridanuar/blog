@@ -57,6 +57,13 @@
                         @endadmin
 
                         <x-dropdown-item
+                            href="/profile"
+                            :active="request()->is('profile')"
+                        >
+                            Profile
+                        </x-dropdown-item>
+
+                        <x-dropdown-item
                             href="#"
                             x-data="{}"
                             @click.prevent="document.querySelector('#logout-form').submit()"
@@ -92,7 +99,7 @@
         <footer id="newsletter"
                 class="bg-gray-100 border border-black border-opacity-5 rounded-xl text-center py-16 px-10 mt-16"
         >
-            <img src="/images/footer-image.png" alt="" class="mx-auto mb-6 rounded-xl" style="width: 145px;">
+            <img src="/images/footer-image.png" alt="" class="mx-auto mb-6 rounded-xl" width="145">
 
             <h5 class="text-3xl">Stay in touch with the latest posts</h5>
             <p class="text-sm mt-3">Gain some weird knowledge</p>
