@@ -25,6 +25,12 @@ And run the initial migrations and seeders.
 php artisan migrate --seed
 ```
 
+run this command to create storage symlink so the files are accessible to the public
+
+```
+php artisan storage:link
+```
+
 ## Further Ideas
 
 Of course we only had time in the Laravel From Scratch series to review the essentials of a blogging platform. You can certainly take this many 
