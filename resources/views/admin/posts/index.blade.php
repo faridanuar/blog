@@ -9,7 +9,7 @@
                                 @foreach ($posts as $post)
                                     <tr>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                            <img src="{{ ($post->thumbnail)? asset('storage/' . $post->thumbnail) : '/images/no-avatar.png' }}" alt="avatar_image" width="80" height="80" class="rounded-xl">
+                                            <x-thumbnail :thumbnail="(isset($post->thumbnail))? $post->thumbnail : null" width="80" height="80" />
                                         </td>
 
                                         <td class="px-6 py-4 whitespace-nowrap">
