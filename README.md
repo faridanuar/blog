@@ -29,6 +29,14 @@ run this command to create storage symlink so the files are accessible to the pu
 
 ```
 php artisan storage:link
+
+```
+
+if you run in wamp make these symbolic links
+
+```
+mklink /d C:\projects\laravel\blog\public\js C:\projects\laravel\blog\resources\js
+
 ```
 
 ## Further Ideas
