@@ -19,10 +19,10 @@ export default {
         return {
             // checkbox list
             assignments: [
-                {name: 'Finish Vue Lessons', complete: false, id:1},
-                {name: 'Finish Advanced PHP Lessons', complete: false, id:2},
-                {name: 'Explore Advance MySQL Optimisation', complete: false, id:3},
-                {name: 'Try to do more advanced coding task', complete: false, id:4},
+                {name: 'Finish Vue Lessons', complete: false, id: 1, tag: 'tag 1'},
+                {name: 'Finish Advanced PHP Lessons', complete: false, id: 2, tag: 'tag 2'},
+                {name: 'Explore Advance MySQL Optimisation', complete: false, id: 3, tag: 'tag 3'},
+                {name: 'Try to do more advanced coding task', complete: false, id: 4, tag: 'tag 1'},
             ],
         }
     },
