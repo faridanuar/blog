@@ -17,13 +17,8 @@ export default {
 
     data() {
         return {
-            // checkbox list
-            assignments: [
-                {name: 'Finish Vue Lessons', complete: false, id: 1, tag: 'tag 1'},
-                {name: 'Finish Advanced PHP Lessons', complete: false, id: 2, tag: 'tag 2'},
-                {name: 'Explore Advance MySQL Optimisation', complete: false, id: 3, tag: 'tag 3'},
-                {name: 'Try to do more advanced coding task', complete: false, id: 4, tag: 'tag 1'},
-            ],
+            // list of data variable
+            assignments: [],
         }
     },
 
@@ -34,6 +29,18 @@ export default {
                 completed: this.assignments.filter(assignment => assignment.complete),
             }
         }
+    },
+
+    // use instance created() to do ajax request to call data list from API
+    created() {
+        // fetch is on standby ready to pull data from the url
+        fetch('http://localhost:3001/assignments')
+            // request for json format of the data
+            .then(response => response.json())
+            // execute then get the list of data
+            .then(assignments => {
+                this.assignments = assignments;
+            });
     },
 
     methods: {
