@@ -1,13 +1,18 @@
 <x-layout>
+
     <head>
         <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
         <script src="https://cdn.tailwindcss.com"></script>
         <style>
             @keyframes spinner {
-                to {transform: rotate(360deg);}
+                to {
+                    transform: rotate(360deg);
+                }
             }
-            
-            .is-loading {color: transparent;}
+
+            .is-loading {
+                color: transparent;
+            }
 
             .is-loading:before {
                 content: '';
@@ -36,11 +41,29 @@
     </head>
     <main class="max-w-lg mx-auto mt-10 space-y-6">
         <h4 style="text-align:center"><b>CODING PLAYGROUND</b></h4>
-        
+
         <div id="app">
-            <x-panel class="mt-5 bg-gray-800 text-white h-full grid place-items-center">
-                <assignments></assignments>
-            </x-panel>
+            <div class="grid grap-6">
+                <x-panel class="mt-5 bg-gray-800 text-white h-full grid place-items-center">
+                    <assignments></assignments>
+
+                    <panel>
+                        <template v-slot:heading>Dark Panel heading</template>
+
+                        Default Slot Here
+
+                        <template v-slot:footer>Footer here</template>
+                    </panel>
+
+                    <panel theme="light">
+                        <template v-slot:heading>Light Panel Heading</template>
+
+                        Default Slot Here
+
+                        <template v-slot:footer>Footer here</template>
+                    </panel>
+                </x-panel>
+            </div>
 
             <x-panel class="mt-5">
                 <click-me-button></click-me-button>
@@ -82,7 +105,7 @@
 
     {{-- REFERENCE FOR RAW VUE CODE --}}
 
-    {{--- <div class="flex justify-center items-center">
+    {{-- - <div class="flex justify-center items-center">
         <button :class="active ? 'text-red' : 'text-green'" @click="toggle">Click Me</button>
     </div> --}}
 

@@ -2,9 +2,11 @@
 import AppButton from "./AppButton.js";
 import Assignments from "./Assignments.js";
 import ClickMeButton from "./ClickMeButton.js";
+import Panel from "./Panel.js";
 
 export default {
     components: {
+        Panel,
         Assignments,
         'click-me-button': ClickMeButton,
         'app-button': AppButton

@@ -7,11 +7,18 @@ export default {
     // :assignment is when providing processed data, without : it will provide value as string like the 'title' prop
     // v-on:add / @add is the parent custom method from this file and helps listen for custom events (add() & $emit syntax) in the child file
     template: `
-        <section class="space-y-6">
-            <assignment-list :assignments="filters.inProgress" title="In Progress"></assignment-list>
-            <assignment-list :assignments="filters.completed" title="Completed"></assignment-list>
-
-            <assignment-create @add="add"></assignment-create>
+        <section class="flex gap-8">
+            <assignment-list :assignments="filters.inProgress" title="In Progress">
+                <assignment-create @add="add"></assignment-create>
+            </assignment-list>
+            
+            <assignment-list
+                v-if="showCompleted"
+                :assignments="filters.completed" 
+                title="Completed"
+                can-toggle
+                @toggle="showCompleted = !showCompleted"
+            ></assignment-list>
         </section>
     `,
 
@@ -19,6 +26,7 @@ export default {
         return {
             // list of data variable
             assignments: [],
+            showCompleted: true,
         }
     },
 
