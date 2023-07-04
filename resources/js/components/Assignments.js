@@ -58,6 +58,7 @@ export default {
                 name: name,
                 complete: false,
                 id: this.assignments.length + 1,
+                tag: 'Uncategorized'
             });
         }
     }

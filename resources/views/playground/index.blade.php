@@ -65,7 +65,7 @@
                 </x-panel>
             </div>
 
-            <x-panel class="mt-5">
+            <x-panel class="mt-10">
                 <click-me-button></click-me-button>
             </x-panel>
 
