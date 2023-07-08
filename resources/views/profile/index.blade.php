@@ -1,7 +1,7 @@
 <x-layout>
-    <section class="px-6 py-8">
-        <main class="max-w-lg mx-auto mt-10">
-            <x-panel>
+    <x-setting :heading="'Edit Profile'">
+        <section class="px-6 py-8">
+            <main class="max-w-lg mx-auto mt-10">
                 <div style="float:right;"><a href="/profile/edit">Edit</a></div>
                 <div><h1 class="text-center font-bold text-xl">Profile Overview</h1></div>
                 
@@ -13,7 +13,7 @@
                     <div class="p-2"><h4>{{ ucfirst($model->name) }}</h4></div>
                     <div class="p-2"><span style="font-size:12;color:grey;">{{ '@'.$model->username }}</span></div>
                 </div>
-            </x-panel>
-        </main>
-    </section>
+            </main>
+        </section>
+    </x-setting>
 </x-layout>

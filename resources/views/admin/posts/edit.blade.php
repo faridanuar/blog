@@ -7,12 +7,19 @@
             <x-form.input name="title" :value="old('title', $post->title)" required />
             <x-form.input name="slug" :value="old('slug', $post->slug)" required />
 
-            <div class="flex mt-6">
+            <div class="mt-6">
                 <div class="flex-1">
                     <x-form.input name="thumbnail" type="file" :value="old('thumbnail', $post->thumbnail)" />
                 </div>
 
-                <img src="{{ asset('storage/' . $post->thumbnail) }}" alt="" class="rounded-xl ml-6" width="100">
+                @if ($post->thumbnail)
+                    <div class="mt-6">
+                        <x-form.label name="Thumbnail Preview"/>
+                        <x-panel class="mt-2 w-36">
+                            <img src="{{ asset('storage/' . $post->thumbnail) }}" alt="" class="rounded-xl" width="100">
+                        </x-panel>
+                    </div>
+                @endif
             </div>
 
             <x-form.textarea name="excerpt" required>{{ old('excerpt', $post->excerpt) }}</x-form.textarea>

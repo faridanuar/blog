@@ -9,6 +9,7 @@
         id="{{ $name }}"
         required
         {{ $attributes }}
+        style="height:130px;"
     >{{ $slot ?? old($name) }}</textarea>
 
     <x-form.error name="{{ $name }}" />
