@@ -36,4 +36,5 @@ Route::middleware('auth')->group(function () {
 // Admin Section
 Route::middleware('can:admin')->group(function () {
     Route::resource('admin/posts', AdminPostController::class)->except('show');
+    Route::get('admin/posts/{post:slug}', [AdminPostController::class, 'show']);
 });

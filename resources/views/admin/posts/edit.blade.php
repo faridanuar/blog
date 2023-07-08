@@ -33,6 +33,21 @@
                 <x-form.error name="category"/>
             </x-form.field>
 
+            <x-form.field>
+                <x-form.label name="Status"/>
+
+                <select name="status_id" id="status_id" required>
+                    @foreach (\App\Utilities\posts\OptionList::render('post-status') as $key => $status)
+                        <option
+                            value="{{ $key }}"
+                            {{ old('status_id', $post->status_id) == $key ? 'selected' : '' }}
+                        >{{ ucwords($status) }}</option>
+                    @endforeach
+                </select>
+
+                <x-form.error name="status"/>
+            </x-form.field>
+
             <x-form.button>Update</x-form.button>
         </form>
     </x-setting>

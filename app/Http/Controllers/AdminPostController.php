@@ -14,6 +14,13 @@ class AdminPostController extends Controller
         ]);
     }
 
+    public function show(Post $post)
+    {
+        return view('posts.show', [
+            'post' => $post
+        ]);
+    }
+
     public function create()
     {
         return view('admin.posts.create');
@@ -64,7 +71,8 @@ class AdminPostController extends Controller
             'slug' => ['required', Rule::unique('posts', 'slug')->ignore($post)],
             'excerpt' => 'required',
             'body' => 'required',
-            'category_id' => ['required', Rule::exists('categories', 'id')]
+            'category_id' => ['required', Rule::exists('categories', 'id')],
+            'status_id' => 'required',
         ]);
     }
 }

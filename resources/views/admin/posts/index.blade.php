@@ -9,21 +9,30 @@
                                 @foreach ($posts as $post)
                                     <tr>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                            <x-thumbnail :thumbnail="(isset($post->thumbnail))? $post->thumbnail : null" width="80" height="80" />
+                                            <x-thumbnail :thumbnail="isset($post->thumbnail) ? $post->thumbnail : null" width="80" height="80" />
                                         </td>
 
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="flex items-center">
                                                 <div class="text-sm font-medium text-gray-900">
-                                                    <a href="/posts/{{ $post->slug }}">
+                                                    <a href="/admin/posts/{{ $post->slug }}">
                                                         {{ $post->title }}
                                                     </a>
                                                 </div>
                                             </div>
                                         </td>
 
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="flex items-center">
+                                                <div class="text-sm font-medium text-gray-900">
+                                                    {{ \App\Utilities\posts\OptionList::value('post-status', $post->status_id) }}
+                                                </div>
+                                            </div>
+                                        </td>
+
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                            <a href="/admin/posts/{{ $post->id }}/edit" class="text-blue-500 hover:text-blue-600">Edit</a>
+                                            <a href="/admin/posts/{{ $post->id }}/edit"
+                                                class="text-blue-500 hover:text-blue-600">Edit</a>
                                         </td>
 
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
