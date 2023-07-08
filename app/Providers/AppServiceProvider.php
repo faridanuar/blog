@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\User;
+use App\Models\Post;
 use App\Services\Newsletter;
 use App\Services\MailchimpNewsletter;
 use Illuminate\Database\Eloquent\Model;
@@ -39,10 +40,16 @@ class AppServiceProvider extends ServiceProvider
     {
         Model::unguard();
 
+        // register middleware
         Gate::define('admin', function (User $user) {
             return $user->username === 'fred';
         });
 
+        Gate::define('author', function (User $user, Post $post) {
+            return (($post->user_id === $user) || $user->username === 'fred') ? true : false;
+        });
+
+        // register balde helper @admin
         Blade::if('admin', function () {
             return request()->user()?->can('admin');
         });

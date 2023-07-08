@@ -23,7 +23,8 @@ class AdminPostController extends Controller
 
     public function create()
     {
-        return view('admin.posts.create');
+        $post = new Post;
+        return view('admin.posts.create', ['post' => $post]);
     }
 
     public function store()
