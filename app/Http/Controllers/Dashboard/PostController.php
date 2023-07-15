@@ -1,30 +1,41 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Dashboard;
 
 use App\Models\Post;
 use Illuminate\Validation\Rule;
 
-class AdminPostController extends Controller
+class PostController extends \App\Http\Controllers\Controller
 {
-    public function index()
+    public function __construct()
     {
-        return view('admin.posts.index', [
-            'posts' => Post::where(['is_deleted' => 0])->paginate(50)
-        ]);
+        // register policy to auto assign method name matching because this controller uses resource method on web.php
+        $this->authorizeResource(Post::class, 'post');
     }
 
-    public function show(Post $post)
+    public function index()
     {
-        return view('posts.show', [
-            'post' => $post
+        if (request()->user()->can('admin')) {
+            // list all
+            $posts = Post::where(['is_deleted' => 0])->filter(
+                request(['search', 'category', 'author'])
+            )->orderBy('created_at', 'desc')->paginate(18)->withQueryString();
+        } else {
+            // list authored only
+            $posts = Post::where(['user_id' => request()->user()->id, 'is_deleted' => 0])->filter(
+                request(['search', 'category'])
+            )->orderBy('created_at', 'desc')->paginate(18)->withQueryString();
+        }
+
+        return view('dashboard.posts.index', [
+            'posts' => $posts,
         ]);
     }
 
     public function create()
     {
         $post = new Post;
-        return view('admin.posts.create', ['post' => $post]);
+        return view('dashboard.posts.create', ['post' => $post]);
     }
 
     public function store()
@@ -39,7 +50,7 @@ class AdminPostController extends Controller
 
     public function edit(Post $post)
     {
-        return view('admin.posts.edit', ['post' => $post]);
+        return view('dashboard.posts.edit', ['post' => $post]);
     }
 
     public function update(Post $post)
@@ -52,14 +63,14 @@ class AdminPostController extends Controller
 
         $post->update($attributes);
 
-        return back()->with('success', 'Post Updated!');
+        return back()->with('success', 'Record Updated!');
     }
 
     public function destroy(Post $post)
     {
-        $post->delete();
+        $post->update(['is_deleted' => 1]);
 
-        return back()->with('success', 'Post Deleted!');
+        return back()->with('success', 'Record Deleted!');
     }
 
     protected function validatePost(?Post $post = null): array

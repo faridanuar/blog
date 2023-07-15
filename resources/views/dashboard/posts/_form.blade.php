@@ -1,3 +1,11 @@
+@if ($errors->any())
+    <ul>
+        @foreach ($errors->all() as $error)
+            <li><p class="text-red-500 text-xs mt-2">{{ $error }}</p></li>
+        @endforeach
+    </ul>
+@endif
+
 <x-form.input name="title" :value="old('title', $post->title)" required />
 <x-form.input name="slug" :value="old('slug', $post->slug)" required />
 
@@ -38,7 +46,7 @@
     <x-form.label name="Status"/>
 
     <select name="status_id" id="status_id" required>
-        @foreach (\App\Utilities\posts\OptionList::render('post-status') as $key => $status)
+        @foreach (\App\Utilities\Post\OptionList::render('post-status') as $key => $status)
             <option
                 value="{{ $key }}"
                 {{ old('status_id', $post->status_id) == $key ? 'selected' : '' }}

@@ -40,15 +40,13 @@
                             </button>
                         </x-slot>
 
-                        @admin
-                            <x-dropdown-item href="/admin/posts" :active="request()->is('admin/posts')">
-                                Dashboard
-                            </x-dropdown-item>
+                        <x-dropdown-item href="/dashboard/posts" :active="request()->is('dashboard/posts')">
+                            Dashboard
+                        </x-dropdown-item>
 
-                            <x-dropdown-item href="/admin/posts/create" :active="request()->is('admin/posts/create')">
-                                New Post
-                            </x-dropdown-item>
-                        @endadmin
+                        <x-dropdown-item href="/dashboard/posts/create" :active="request()->is('dashboard/posts/create')">
+                            New Post
+                        </x-dropdown-item>
 
                         <x-dropdown-item href="/profile" :active="request()->is('profile')">
                             Profile

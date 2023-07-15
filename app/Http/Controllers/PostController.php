@@ -3,9 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use Exception;
-use Facade\FlareClient\Http\Exceptions\NotFound;
-use Illuminate\Validation\Rule;
 
 class PostController extends Controller
 {

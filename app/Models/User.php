@@ -11,6 +11,10 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    const ROLE_REGISTERED = 0;
+    const ROLE_AUTHOR = 1;
+    const ROLE_ADMIN = 10;
+
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -29,6 +33,27 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function scopeFilter($query, array $filters)
+    {
+        $query->when(
+            $filters['search'] ?? false,
+            fn ($query, $search) =>
+            $query->where(
+                fn ($query) =>
+                $query->where('name', 'like', '%' . $search . '%')
+            )
+        );
+
+        $query->when(
+            $filters['role'] ?? false,
+            fn ($query, $role) =>
+            $query->where(
+                fn ($query) =>
+                $query->where('role_id', $role)
+            )
+        );
+    }
 
     public function setPasswordAttribute($password)
     {

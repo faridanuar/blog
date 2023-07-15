@@ -19,7 +19,8 @@ class DatabaseSeeder extends Seeder
             'name' => 'Fred',
             'username' => 'fred',
             'email' => 'fred@example.com',
-            'password' => 'asdasd',
+            'password' => 'secretasdasd',
+            'role_id' => User::ROLE_ADMIN,
         ]);
 
         Post::factory(5)->create([

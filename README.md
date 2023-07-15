@@ -44,7 +44,6 @@ mklink /d C:\projects\laravel\blog\public\js C:\projects\laravel\blog\resources\
 Of course we only had time in the Laravel From Scratch series to review the essentials of a blogging platform. You can certainly take this many
 steps further. Here are some quick ideas that you might play with.
 
-2. Update the "Edit Post" page in the admin section to allow for changing the author of a post.
 3. Add an RSS feed that lists all posts in chronological order.
 4. Record/Track and display the "views_count" for each post.
 5. Allow registered users to "follow" certain authors. When they publish a new post, an email should be delivered to all followers.
