@@ -33,6 +33,7 @@ class UserController extends \App\Http\Controllers\Controller
     public function store()
     {
         User::create(array_merge($this->validateUser(), [
+            'email_verified_at' => date('Y-m-d H:i:s'),
             'avatar' => request()->file('avatar')->store('avatars')
         ]));
 
