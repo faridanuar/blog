@@ -1,4 +1,9 @@
 <x-dashboard.list>
+    <tr>
+        <x-dashboard.list-column class="px-10">
+            <a href="/dashboard/posts/create" class="text-blue-500 hover:text-blue-600">New</a>
+        </x-dashboard.list-column>
+    </tr>
 @forelse ($posts as $post)
     <tr>
         <x-dashboard.list-column class="text-right text-sm font-medium">

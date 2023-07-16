@@ -33,7 +33,6 @@ class UserController extends \App\Http\Controllers\Controller
     public function store()
     {
         User::create(array_merge($this->validateUser(), [
-            'user_id' => request()->user()->id,
             'avatar' => request()->file('avatar')->store('avatars')
         ]));
 

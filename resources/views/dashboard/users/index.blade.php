@@ -1,4 +1,9 @@
 <x-dashboard.list>
+    <tr>
+        <x-dashboard.list-column class="px-10">
+            <a href="/dashboard/users/create" class="text-blue-500 hover:text-blue-600">New</a>
+        </x-dashboard.list-column>
+    </tr>
 @forelse ($users as $user)
     <tr>
         <x-dashboard.list-column class="text-right text-sm font-medium">
@@ -22,8 +27,7 @@
         </x-dashboard.list-column>
 
         <x-dashboard.list-column class="text-right text-sm font-medium">
-            <a href="/dashboard/users/{{ $user->id }}/edit"
-                class="text-blue-500 hover:text-blue-600">Edit</a>
+            <a href="/dashboard/users/{{ $user->id }}/edit" class="text-blue-500 hover:text-blue-600">Edit</a>
         </x-dashboard.list-column>
 
         <x-dashboard.list-column class="text-right text-sm font-medium">

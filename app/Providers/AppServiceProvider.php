@@ -42,11 +42,7 @@ class AppServiceProvider extends ServiceProvider
 
         // register middleware
         Gate::define('admin', function (User $user) {
-            return $user->username === 'fred';
-        });
-
-        Gate::define('author', function (User $user, Post $post) {
-            return (($post->user_id === $user) || $user->username === 'fred') ? true : false;
+            return $user->role_id === User::ROLE_ADMIN;
         });
 
         // register balde helper @admin
