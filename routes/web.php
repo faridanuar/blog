@@ -5,14 +5,12 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
-use App\Http\Controllers\Admin\AdminPostController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PlaygroundController;
 use App\Http\Controllers\PostCommentsController;
 
 Route::get('/', [PostController::class, 'index'])->name('home');
 Route::get('posts/{post:slug}', [PostController::class, 'show']);
-
 Route::post('posts/{post:slug}/comments', [PostCommentsController::class, 'store']);
 
 Route::post('newsletter', NewsletterController::class);
@@ -33,7 +31,10 @@ Route::middleware('auth')->group(function () {
     Route::get('profile', [ProfileController::class, 'index']);
     Route::get('profile/edit', [ProfileController::class, 'edit']);
     Route::patch('profile/edit', [ProfileController::class, 'update']);
-});
 
-Route::resource('dashboard/users', \App\Http\Controllers\Dashboard\UserController::class);
-Route::resource('dashboard/posts', \App\Http\Controllers\Dashboard\PostController::class);
+    Route::get('password/edit', [\App\Http\Controllers\PasswordController::class, 'edit']);
+    Route::patch('password/update', [\App\Http\Controllers\PasswordController::class, 'update']);
+
+    Route::resource('dashboard/users', \App\Http\Controllers\Dashboard\UserController::class);
+    Route::resource('dashboard/posts', \App\Http\Controllers\Dashboard\PostController::class);
+});

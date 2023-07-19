@@ -26,6 +26,9 @@
                 <li>
                     <a href="/profile" class="{{ request()->is('profile') ? 'text-blue-500' : '' }}">Profile</a>
                 </li>
+                <li>
+                    <a href="/password/edit" class="{{ request()->is('password/edit') ? 'text-blue-500' : '' }}">Edit Password</a>
+                </li>
             </ul>
         </aside>
 
