@@ -46,6 +46,52 @@ USER $user
 # Copy the Laravel project files into the image
 COPY . /var/www/html/
 
+# Create .env file (for flo server deployment)
+RUN RUN echo " \
+    APP_NAME=blog \
+    APP_ENV=local \
+    APP_KEY=base64:kfznkW1ss6s5c8hCQsYyO/vCjHeFaDSTCqosqIh7dz4= \
+    APP_DEBUG=true \
+    APP_URL=http://blog \
+    LOG_CHANNEL=stack \
+    LOG_LEVEL=debug \
+    DB_CONNECTION=mysql \
+    DB_HOST=localhost \
+    DB_PORT=3306 \
+    DB_DATABASE=blog \
+    DB_USERNAME=root \
+    DB_PASSWORD= \
+    BROADCAST_DRIVER=log \
+    CACHE_DRIVER=file \
+    QUEUE_CONNECTION=sync \
+    SESSION_DRIVER=file \
+    SESSION_LIFETIME=120 \
+    MEMCACHED_HOST=127.0.0.1 \
+    REDIS_HOST=127.0.0.1 \
+    REDIS_PASSWORD=null \
+    REDIS_PORT=6379 \
+    MAIL_MAILER=smtp \
+    MAIL_HOST=mailhog \
+    MAIL_PORT=1025 \
+    MAIL_USERNAME=null \
+    MAIL_PASSWORD=null \
+    MAIL_ENCRYPTION=null \
+    MAIL_FROM_ADDRESS=null \
+    MAIL_FROM_NAME='${APP_NAME}' \
+    AWS_ACCESS_KEY_ID= \
+    AWS_SECRET_ACCESS_KEY= \
+    AWS_DEFAULT_REGION=us-east-1 \
+    AWS_BUCKET= \
+    PUSHER_APP_ID= \
+    PUSHER_APP_KEY= \
+    PUSHER_APP_SECRET= \
+    PUSHER_APP_CLUSTER=mt1 \
+    MIX_PUSHER_APP_KEY='${PUSHER_APP_KEY}' \
+    MIX_PUSHER_APP_CLUSTER='${PUSHER_APP_CLUSTER}' \
+    MAILCHIMP_KEY= \
+    MAILCHIMP_LIST_SUBSCRIBERS= \
+    " > /var/www/html/.env
+
 # Debug output section when running dockerfile
 #RUN chown -R $user:$user /var/www/html/
 RUN composer --version
