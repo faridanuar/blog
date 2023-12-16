@@ -21,8 +21,6 @@ RUN apt-get update && apt-get install -y \
     unzip \
     mariadb-server \
     nginx \
-    php8.1 \
-    php8.1-fpm \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -127,9 +125,9 @@ RUN composer install --optimize-autoloader
 RUN php /var/www/html/artisan migrate --force
 RUN php /var/www/html/artisan db:seed --force
 
-RUN service php8.1-fpm status
+RUN service php status
 
-RUN service php8.1-fpm restart
+RUN service php restart
 
 # Start Nginx and PHP-FPM
-CMD service php8.1-fpm start && nginx -g "daemon off;"
+CMD service php start && nginx -g "daemon off;"
