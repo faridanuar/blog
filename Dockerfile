@@ -44,10 +44,10 @@ USER $user
 USER root
 RUN apt-get update && \
     apt-get install -y default-mysql-server && \
-    service mysqld start && \
+    service mysql start && \
     mysql -e "CREATE DATABASE IF NOT EXISTS $dbname;" && \
-    mysql -e "CREATE USER '{$dbuser}'@'localhost' IDENTIFIED BY '{$dbpass}';" && \
-    mysql -e "GRANT ALL PRIVILEGES ON {$dbname}.* TO '{$dbuser}'@'localhost';" && \
+    mysql -e "CREATE USER '$dbuser'@'localhost' IDENTIFIED BY '$dbpass';" && \
+    mysql -e "GRANT ALL PRIVILEGES ON $dbname.* TO '$dbuser'@'localhost';" && \
     mysql -e "FLUSH PRIVILEGES;"
 
 # Run artisan migrate and seed
@@ -61,7 +61,7 @@ COPY ./docker-compose/nginx/blog.conf /etc/nginx/sites-available/default
 RUN ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled
 
 # Expose ports
-EXPOSE 3306 80
+EXPOSE 80
 
 # Start Nginx and PHP-FPM
 CMD service php8.1-fpm start && nginx -g "daemon off;"
