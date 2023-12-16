@@ -4,8 +4,8 @@ FROM php:8.1-fpm
 ARG user
 ARG uid
 ARG dbuser
-ARG dbname
 ARG dbpass
+ARG dbname
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -38,10 +38,6 @@ WORKDIR /var/www
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 RUN composer install
 
-# Run artisan migrate and seed
-RUN php artisan migrate --force
-RUN php artisan db:seed --force
-
 # Switch to the user for running Composer and Artisan Commands
 USER $user
 
@@ -51,9 +47,13 @@ RUN apt-get update && \
     apt-get install -y mysql-server && \
     service mysql start && \
     mysql -e "CREATE DATABASE IF NOT EXISTS $dbname;" && \
-    mysql -e "CREATE USER '$dbuser'@'localhost' IDENTIFIED BY '$db_pass';" && \
-    mysql -e "GRANT ALL PRIVILEGES ON $dbname.* TO '$dbuser'@'localhost';" && \
+    mysql -e "CREATE USER '{$dbuser}'@'localhost' IDENTIFIED BY '{$dbpass}';" && \
+    mysql -e "GRANT ALL PRIVILEGES ON {$dbname}.* TO '{$dbuser}'@'localhost';" && \
     mysql -e "FLUSH PRIVILEGES;"
+
+# Run artisan migrate and seed
+RUN php artisan migrate --force
+RUN php artisan db:seed --force
 
 # Install Nginx
 USER root
