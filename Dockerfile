@@ -125,9 +125,9 @@ RUN composer install --optimize-autoloader
 RUN php /var/www/html/artisan migrate --force
 RUN php /var/www/html/artisan db:seed --force
 
-RUN systemctl status php8.1-fpm
+RUN service status php8.1-fpm
 
-RUN systemctl restart php8.1-fpm
+RUN service restart php8.1-fpm
 
 # Start Nginx and PHP-FPM
 CMD service php8.1-fpm start && nginx -g "daemon off;"
