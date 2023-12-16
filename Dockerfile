@@ -47,7 +47,7 @@ USER $user
 COPY . /var/www/html/
 
 # Create .env file (for flo server deployment)
-RUN RUN echo " \
+RUN echo " \
     APP_NAME=blog \
     APP_ENV=local \
     APP_KEY=base64:kfznkW1ss6s5c8hCQsYyO/vCjHeFaDSTCqosqIh7dz4= \
