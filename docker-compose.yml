@@ -39,7 +39,7 @@ services:
     container_name: blog-nginx
     restart: unless-stopped
     ports:
-      - 81:81
+      - 80:80
     volumes:
       - ./:/var/www
       - ./docker-compose/nginx:/etc/nginx/conf.d
