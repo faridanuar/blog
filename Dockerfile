@@ -34,8 +34,13 @@ RUN mkdir -p /home/$user/.composer && \
 # Set working directory
 WORKDIR /var/www
 
-# Run composer install and artisan migrate
+# Run composer install
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN composer install
+
+# Run artisan migrate and seed
+RUN php artisan migrate --force
+RUN php artisan db:seed --force
 
 # Switch to the user for running Composer and Artisan Commands
 USER $user
