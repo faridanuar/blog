@@ -44,7 +44,7 @@ USER $user
 USER root
 RUN apt-get update && \
     apt-get install -y default-mysql-server && \
-    service mysql start && \
+    service mysqld start && \
     mysql -e "CREATE DATABASE IF NOT EXISTS $dbname;" && \
     mysql -e "CREATE USER '{$dbuser}'@'localhost' IDENTIFIED BY '{$dbpass}';" && \
     mysql -e "GRANT ALL PRIVILEGES ON {$dbname}.* TO '{$dbuser}'@'localhost';" && \
