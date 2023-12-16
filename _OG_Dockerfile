@@ -3,9 +3,6 @@ FROM php:8.1-fpm
 # Arguments defined in docker-compose.yml
 ARG user
 ARG uid
-ARG dbuser
-ARG dbname
-ARG dbpass
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -37,27 +34,4 @@ WORKDIR /var/www
 # Run composer install and artisan migrate
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Switch to the user for running Composer and Artisan Commands
 USER $user
-
-# Install MySQL
-USER root
-RUN apt-get update && \
-    apt-get install -y mysql-server && \
-    service mysql start && \
-    mysql -e "CREATE DATABASE IF NOT EXISTS $dbname;" && \
-    mysql -e "CREATE USER '$dbuser'@'localhost' IDENTIFIED BY '$db_pass';" && \
-    mysql -e "GRANT ALL PRIVILEGES ON $dbname.* TO '$dbuser'@'localhost';" && \
-    mysql -e "FLUSH PRIVILEGES;"
-
-# Install Nginx
-USER root
-RUN apt-get install -y nginx
-COPY ./docker-compose/nginx/blog.conf /etc/nginx/sites-available/default
-RUN ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled
-
-# Expose ports
-EXPOSE 3306 80
-
-# Start Nginx and PHP-FPM
-CMD service php8.1-fpm start && nginx -g "daemon off;"
