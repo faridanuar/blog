@@ -43,9 +43,9 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Switch to the user for running Composer and Artisan Commands
 USER $user
 
-# Install MySQL (MariaDB)
+# Install MariaDB
 USER root
-RUN service mysql start && \
+RUN service mariadb start && \
     mysql -e "CREATE DATABASE IF NOT EXISTS $dbname;" && \
     mysql -e "CREATE USER '$dbuser'@'localhost' IDENTIFIED BY '$dbpass';" && \
     mysql -e "GRANT ALL PRIVILEGES ON $dbname.* TO '$dbuser'@'localhost';" && \
