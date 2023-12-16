@@ -42,8 +42,13 @@ RUN service mariadb start && \
     mysql -e "GRANT ALL PRIVILEGES ON $dbname.* TO '$dbuser'@'localhost';" && \
     mysql -e "FLUSH PRIVILEGES;"
 
-# Install Nginx
+# Copy Nginx .conf
 COPY ./docker-compose/nginx/blog.conf /etc/nginx/sites-available/default
+
+# Remove existing symbolic link if it exists
+RUN rm -f /etc/nginx/sites-enabled/default
+
+# Create nginc symbolic link
 RUN ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled
 
 # Expose ports
