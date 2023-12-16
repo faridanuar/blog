@@ -35,7 +35,7 @@ RUN mkdir -p /home/$user/.composer && \
     chown -R $user:$user /home/$user
 
 # Set working directory
-WORKDIR /var/www
+WORKDIR /var/www/html
 
 # Run composer install
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -44,10 +44,10 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 USER $user
 
 # Copy the Laravel project files into the image
-COPY . /var/www
+COPY . /var/www/html/
 
 # Debug output section when running dockerfile
-RUN chown -R $user:$user /var/www
+#RUN chown -R $user:$user /var/www/html/
 RUN composer --version
 RUN ls -al /var/www
 RUN composer clear-cache
