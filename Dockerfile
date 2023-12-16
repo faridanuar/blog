@@ -98,7 +98,7 @@ RUN echo " \
 # Debug output section when running dockerfile
 #RUN chown -R $user:$user /var/www/html/
 RUN composer --version
-RUN ls -al /var/www
+RUN ls -al /var/www/html/
 RUN composer clear-cache
 
 # Install MariaDB
@@ -110,8 +110,8 @@ RUN service mariadb start && \
     mysql -e "FLUSH PRIVILEGES;"
 
 # Run artisan migrate and seed
-RUN php artisan migrate --force
-RUN php artisan db:seed --force
+RUN php /var/www/html/artisan migrate --force
+RUN php /var/www/html/artisan db:seed --force
 
 # Install Nginx
 USER root
