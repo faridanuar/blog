@@ -36,7 +36,6 @@ WORKDIR /var/www
 
 # Run composer install
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-RUN composer install
 
 # Switch to the user for running Composer and Artisan Commands
 USER $user
