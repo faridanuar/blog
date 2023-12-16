@@ -126,4 +126,5 @@ RUN php /var/www/html/artisan migrate --force
 RUN php /var/www/html/artisan db:seed --force
 
 # Start Nginx and PHP-FPM
+USER root
 CMD nginx -g "daemon off;"
