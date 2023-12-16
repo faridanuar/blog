@@ -40,6 +40,9 @@ WORKDIR /var/www/html
 # Run composer install
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+# Install dependencies and generate the optimized autoload files
+#RUN composer install --no-interaction --optimize-autoloader --verbose
+
 # Switch to the user for running Composer and Artisan Commands
 USER $user
 
@@ -97,9 +100,6 @@ RUN echo " \
 RUN composer --version
 RUN ls -al /var/www
 RUN composer clear-cache
-
-# Install dependencies and generate the optimized autoload files
-RUN composer install --no-interaction --optimize-autoloader --verbose
 
 # Install MariaDB
 USER root
