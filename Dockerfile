@@ -21,6 +21,8 @@ RUN apt-get update && apt-get install -y \
     unzip \
     mariadb-server \
     nginx \
+    php8.1 \
+    php8.1-fpm \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
