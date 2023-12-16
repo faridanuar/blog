@@ -43,9 +43,6 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Switch to the user for running Composer and Artisan Commands
 USER $user
 
-# Copy the Laravel project files into the image
-COPY . /var/www
-
 # Install dependencies and generate the optimized autoload files
 RUN composer install --no-interaction --optimize-autoloader
 
