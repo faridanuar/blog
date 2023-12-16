@@ -11,7 +11,7 @@ ARG dbname
 ENV DEBIAN_FRONTEND noninteractive
 
 # Install system dependencies
-RUN apt-get update && apt-get install -y \
+RUN sudo apt-get update && apt-get install -y \
     git \
     curl \
     libpng-dev \
@@ -20,6 +20,7 @@ RUN apt-get update && apt-get install -y \
     zip \
     unzip \
     mariadb-server \
+    nginx \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -42,7 +43,6 @@ RUN service mariadb start && \
     mysql -e "FLUSH PRIVILEGES;"
 
 # Install Nginx
-RUN apt-get install -y nginx
 COPY ./docker-compose/nginx/blog.conf /etc/nginx/sites-available/default
 RUN ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled
 
