@@ -125,9 +125,5 @@ RUN composer install --optimize-autoloader
 RUN php /var/www/html/artisan migrate --force
 RUN php /var/www/html/artisan db:seed --force
 
-RUN service php status
-
-RUN service php restart
-
 # Start Nginx and PHP-FPM
-CMD service php start && nginx -g "daemon off;"
+CMD nginx -g "daemon off;"
