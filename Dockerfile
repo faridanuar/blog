@@ -43,7 +43,7 @@ USER $user
 # Install MySQL
 USER root
 RUN apt-get update && \
-    apt-get install -y mysql-server && \
+    apt-get install -y default-mysql-server && \
     service mysql start && \
     mysql -e "CREATE DATABASE IF NOT EXISTS $dbname;" && \
     mysql -e "CREATE USER '{$dbuser}'@'localhost' IDENTIFIED BY '{$dbpass}';" && \
