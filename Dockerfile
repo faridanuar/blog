@@ -46,9 +46,11 @@ USER $user
 # Copy the Laravel project files into the image
 COPY . /var/www
 
+# Debug output section when running dockerfile
+RUN chown -R $user:$user /var/www
 RUN composer --version
-
 RUN ls -al /var/www
+RUN composer clear-cache
 
 # Install dependencies and generate the optimized autoload files
 RUN composer install --no-interaction --optimize-autoloader --verbose
