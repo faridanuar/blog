@@ -43,9 +43,6 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # SWITCH to the USER for running Composer and Artisan Commands
 USER $user
 
-# Install dependencies and generate the optimized autoload files
-RUN /usr/local/bin/composer install --optimize-autoloader --verbose
-
 # Copy the Laravel project files into the image
 COPY . /var/www/html/
 
@@ -100,6 +97,9 @@ RUN echo " \
 RUN composer --version
 RUN ls -al /var/www/html/
 RUN composer clear-cache
+
+# Install dependencies and generate the optimized autoload files
+RUN composer install --optimize-autoloader --verbose
 
 # Install MariaDB
 USER root
