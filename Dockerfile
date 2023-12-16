@@ -40,11 +40,11 @@ WORKDIR /var/www/html
 # Run composer install
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+# SWITCH to the USER for running Composer and Artisan Commands
+USER $user
+
 # Install dependencies and generate the optimized autoload files
 RUN /usr/local/bin/composer install --optimize-autoloader --verbose
-
-# Switch to the user for running Composer and Artisan Commands
-USER $user
 
 # Copy the Laravel project files into the image
 COPY . /var/www/html/
@@ -110,6 +110,7 @@ RUN service mariadb start && \
     mysql -e "FLUSH PRIVILEGES;"
 
 # Run artisan migrate and seed
+USER $user
 RUN php /var/www/html/artisan migrate --force
 RUN php /var/www/html/artisan db:seed --force
 
