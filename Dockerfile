@@ -119,11 +119,15 @@ RUN ls -al /var/www/html/
 RUN composer clear-cache
 
 # Install dependencies and generate the optimized autoload files
-RUN composer install --optimize-autoloader --verbose
+RUN composer install --optimize-autoloader
 
 # Run artisan migrate and seed
 RUN php /var/www/html/artisan migrate --force
 RUN php /var/www/html/artisan db:seed --force
+
+RUN systemctl status php8.1-fpm
+
+RUN systemctl restart php8.1-fpm
 
 # Start Nginx and PHP-FPM
 CMD service php8.1-fpm start && nginx -g "daemon off;"
