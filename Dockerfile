@@ -52,7 +52,7 @@ RUN rm -f /etc/nginx/sites-enabled/default
 RUN ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled
 
 # Expose ports
-EXPOSE 80
+EXPOSE 9000 80
 
 # Set working directory
 WORKDIR /var/www/html
