@@ -7,6 +7,9 @@ ARG dbuser
 ARG dbpass
 ARG dbname
 
+# Set non-interactive environment
+ENV DEBIAN_FRONTEND noninteractive
+
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     git \
@@ -15,10 +18,10 @@ RUN apt-get update && apt-get install -y \
     libonig-dev \
     libxml2-dev \
     zip \
-    unzip
-
-# Clear cache
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+    unzip \
+    mariadb-server \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Install PHP extensions
 RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
@@ -40,11 +43,9 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Switch to the user for running Composer and Artisan Commands
 USER $user
 
-# Install MySQL
+# Install MySQL (MariaDB)
 USER root
-RUN apt-get update && \
-    apt-get install -y default-mysql-server && \
-    service mysql start && \
+RUN service mysql start && \
     mysql -e "CREATE DATABASE IF NOT EXISTS $dbname;" && \
     mysql -e "CREATE USER '$dbuser'@'localhost' IDENTIFIED BY '$dbpass';" && \
     mysql -e "GRANT ALL PRIVILEGES ON $dbname.* TO '$dbuser'@'localhost';" && \
