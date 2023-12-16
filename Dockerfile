@@ -46,8 +46,12 @@ USER $user
 # Copy the Laravel project files into the image
 COPY . /var/www
 
+RUN composer --version
+
+RUN ls -al /var/www
+
 # Install dependencies and generate the optimized autoload files
-RUN composer install --no-interaction --optimize-autoloader
+RUN composer install --no-interaction --optimize-autoloader --verbose
 
 # Install MariaDB
 USER root
