@@ -128,4 +128,6 @@ RUN php /var/www/html/artisan db:seed --force
 # Start Nginx and PHP-FPM
 USER root
 RUN chown -R www-data:www-data /var/www/html
+RUN service nginx status
+RUN service php-fpm status
 CMD nginx -g "daemon off;"
