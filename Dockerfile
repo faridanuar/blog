@@ -121,12 +121,11 @@ RUN composer clear-cache
 # Install dependencies and generate the optimized autoload files
 RUN composer install --optimize-autoloader
 
-RUN chown -R www-data:www-data /var/wwww/html
-
 # Run artisan migrate and seed
 RUN php /var/www/html/artisan migrate --force
 RUN php /var/www/html/artisan db:seed --force
 
 # Start Nginx and PHP-FPM
 USER root
+RUN chown -R www-data:www-data /var/www/html
 CMD nginx -g "daemon off;"
