@@ -21,7 +21,6 @@ RUN apt-get update && apt-get install -y \
     unzip \
     mariadb-server \
     nginx \
-    php8.2-fpm \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -129,5 +128,4 @@ RUN php /var/www/html/artisan db:seed --force
 # Start Nginx and PHP-FPM
 USER root
 RUN chown -R www-data:www-data /var/www/html
-RUN service php-fpm status
 CMD nginx -g "daemon off;"
