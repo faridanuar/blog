@@ -17,9 +17,13 @@ COPY . /var/www/html/
 # Install system dependencies
 RUN apt-get update && \
     apt-get install -y \
+    libpng-dev \
+    libonig-dev \
+    libxml2-dev \
     git \
     curl \
     mariadb-server \
+    zip \
     unzip
 
 # Install Composer
