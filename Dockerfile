@@ -1,5 +1,5 @@
 # Use an official PHP Apache image as the base
-FROM php:8.0-apache
+FROM php:8.1-apache
 
 # Arguments defined in docker-compose.yml
 ARG user
@@ -20,7 +20,6 @@ RUN apt-get update && \
     libpng-dev \
     libonig-dev \
     libxml2-dev \
-    php8.1 \
     git \
     curl \
     mariadb-server \
