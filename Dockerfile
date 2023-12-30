@@ -103,7 +103,7 @@ RUN php /var/www/html/artisan migrate --force
 RUN php /var/www/html/artisan db:seed --force
 
 # Set up Apache virtual host
-COPY apache.conf /etc/apache2/sites-available/000-default.conf
+COPY docker-compose/apache/apache.conf /etc/apache2/sites-available/000-default.conf
 RUN a2enmod rewrite
 
 # Start Apache server
