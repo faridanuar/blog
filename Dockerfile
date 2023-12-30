@@ -20,6 +20,7 @@ RUN apt-get update && \
     libpng-dev \
     libonig-dev \
     libxml2-dev \
+    php8.1 \
     git \
     curl \
     mariadb-server \
