@@ -1,6 +1,8 @@
 # Use an official PHP Apache image as the base
 FROM php:8.1-apache
 
+USER root
+
 # Arguments defined in docker-compose.yml
 ARG user
 ARG uid
@@ -47,15 +49,6 @@ RUN service mariadb start && \
     mysql -e "GRANT ALL PRIVILEGES ON $dbname.* TO '$dbuser'@'localhost';" && \
     mysql -e "FLUSH PRIVILEGES;"
 
-# SWITCH to the USER for running Composer and Artisan Commands
-USER $user
-
-# Debug output section when running dockerfile
-#RUN chown -R $user:$user /var/www/html/
-RUN composer --version
-RUN ls -al /var/www/html/
-RUN composer clear-cache
-
 # Create .env file (for flo server deployment)
 RUN echo "\
     APP_NAME='blog'\n\
@@ -101,6 +94,15 @@ RUN echo "\
     MAILCHIMP_KEY=\n\
     MAILCHIMP_LIST_SUBSCRIBERS=\n\
     " > /var/www/html/.env
+
+# SWITCH to the USER for running Composer and Artisan Commands
+USER $user
+
+# Debug output section when running dockerfile
+#RUN chown -R $user:$user /var/www/html/
+RUN composer --version
+RUN ls -al /var/www/html/
+RUN composer clear-cache
 
 # Install application dependencies using Composer
 RUN composer install --no-interaction --optimize-autoloader
