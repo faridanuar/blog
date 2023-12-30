@@ -106,6 +106,7 @@ RUN composer install --no-interaction --optimize-autoloader
 RUN php /var/www/html/artisan migrate --force
 RUN php /var/www/html/artisan db:seed --force
 
+USER root
 # Set up Apache virtual host
 COPY docker-compose/apache/apache.conf /etc/apache2/sites-available/000-default.conf
 RUN a2enmod rewrite
