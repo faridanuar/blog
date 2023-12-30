@@ -14,6 +14,9 @@ WORKDIR /var/www/html
 # Copy the application files to the container
 COPY . /var/www/html/
 
+# Create log dir
+RUN mkdir /var/html/log
+
 # Install system dependencies
 RUN apt-get update && \
     apt-get install -y \
