@@ -112,6 +112,13 @@ RUN php /var/www/html/artisan migrate --force
 RUN php /var/www/html/artisan db:seed --force
 
 USER root
+
+# Expose ports
+EXPOSE 9000 80 443
+
+# Set file permission so have access from browser
+RUN chown -R www-data:www-data /var/www/html
+
 # Set up Apache virtual host
 COPY docker-compose/apache/apache.conf /etc/apache2/sites-available/000-default.conf
 RUN a2enmod rewrite
