@@ -15,7 +15,7 @@ WORKDIR /var/www/html
 COPY . /var/www/html/
 
 # Create log dir
-RUN mkdir /var/html/log
+RUN mkdir /var/www/log
 
 # Install system dependencies
 RUN apt-get update && \
