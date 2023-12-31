@@ -127,6 +127,9 @@ RUN php artisan storage:link
 RUN chmod -R 755 /var/www/html
 RUN chown -R www-data:www-data /var/www/html/storage
 
+# Check MySQL host
+RUN echo "Checking MySQL host:" && \
+    mysql -u farid -p'secret' -e "SELECT @@hostname;"
 
 # Check Apache2 files
 RUN ls /etc/apache2/sites-available
