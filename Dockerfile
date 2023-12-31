@@ -1,9 +1,6 @@
 # Use an official PHP Apache image as the base
 FROM php:8.1-apache
 
-# Set the container name
-LABEL name=blog
-
 USER root
 
 # Arguments defined in docker-compose.yml
@@ -56,8 +53,8 @@ RUN mkdir -p /home/$user/.composer && \
 # Install MariaDB & Create Databse for app
 RUN service mariadb start && \
     mysql -e "CREATE DATABASE IF NOT EXISTS $dbname;" && \
-    mysql -e "CREATE USER '$dbuser'@'localhost' IDENTIFIED BY '$dbpass';" && \
-    mysql -e "GRANT ALL PRIVILEGES ON $dbname.* TO '$dbuser'@'localhost';" && \
+    mysql -e "CREATE USER '$dbuser'@'127.0.0.1' IDENTIFIED BY '$dbpass';" && \
+    mysql -e "GRANT ALL PRIVILEGES ON $dbname.* TO '$dbuser'@'127.0.0.1';" && \
     mysql -e "FLUSH PRIVILEGES;"
 
 # Create .env file (for flo server deployment)
@@ -70,7 +67,7 @@ RUN echo "\
     LOG_CHANNEL=stack\n\
     LOG_LEVEL=debug\n\
     DB_CONNECTION=mysql\n\
-    DB_HOST=blog\n\
+    DB_HOST=127.0.0.1\n\
     DB_PORT=3306\n\
     DB_DATABASE=blog\n\
     DB_USERNAME=farid\n\
@@ -129,8 +126,6 @@ RUN php artisan storage:link
 # Set app dir permissions & owner
 RUN chmod -R 755 /var/www/html
 RUN chown -R www-data:www-data /var/www/html/storage
-
-RUN service mysql status
 
 # Check MySQL host
 RUN echo "Checking MySQL host:" && \
