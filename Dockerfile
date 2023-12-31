@@ -23,7 +23,7 @@ COPY . /var/www/html/
 RUN mkdir /var/www/log
 
 # Set file permission so have access from browser
-RUN chown -R www-data:www-data /var/www/html
+RUN chown -R user:user /var/www/html
 
 # Install system dependencies
 RUN apt-get update && \
@@ -118,10 +118,18 @@ RUN composer install --no-interaction --optimize-autoloader
 RUN php /var/www/html/artisan migrate --force
 RUN php /var/www/html/artisan db:seed --force
 
+RUN php artisan storage:link
+
+# Set file permission so have access from browser
+RUN chown -R www-data:www-data /var/www/html
+
 USER root
 
 # Check Apache2 files
-RUN ls /etc/apache2
+RUN ls /etc/apache2/sites-available
+
+# Check Laravel files
+RUN ls /var/www/html/storage
 
 # Set up Apache virtual host
 COPY docker-compose/apache/apache.conf /etc/apache2/sites-available/000-default.conf
