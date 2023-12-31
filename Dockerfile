@@ -55,7 +55,7 @@ RUN service mariadb start && \
     mysql -e "CREATE DATABASE IF NOT EXISTS $dbname;" && \
     mysql -e "CREATE USER '$dbuser'@'localhost' IDENTIFIED BY '$dbpass';" && \
     #mysql -e "GRANT ALL PRIVILEGES ON $dbname.* TO '$dbuser'@'localhost';" && \
-    mysql -e GRANT ALL PRIVILEGES ON * . * TO '$dbuser'@'localhost'; && \
+    mysql -e "GRANT ALL PRIVILEGES ON * . * TO '$dbuser'@'localhost';" && \
     mysql -e "FLUSH PRIVILEGES;" && \
     mysql -e "SELECT @@hostname;";
 
