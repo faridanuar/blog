@@ -55,7 +55,8 @@ RUN service mariadb start && \
     mysql -e "CREATE DATABASE IF NOT EXISTS $dbname;" && \
     mysql -e "CREATE USER '$dbuser'@'127.0.0.1' IDENTIFIED BY '$dbpass';" && \
     mysql -e "GRANT ALL PRIVILEGES ON $dbname.* TO '$dbuser'@'127.0.0.1';" && \
-    mysql -e "FLUSH PRIVILEGES;"
+    mysql -e "FLUSH PRIVILEGES;" && \
+    mysql -e "SELECT @@hostname;";
 
 # Create .env file (for flo server deployment)
 RUN echo "\
@@ -126,10 +127,6 @@ RUN php artisan storage:link
 # Set app dir permissions & owner
 RUN chmod -R 755 /var/www/html
 RUN chown -R www-data:www-data /var/www/html/storage
-
-# Check MySQL host
-RUN echo "Checking MySQL host:" && \
-    mysql -e "SELECT @@hostname;"
 
 # Check Apache2 files
 RUN ls /etc/apache2/sites-available
