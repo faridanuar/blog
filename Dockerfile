@@ -116,8 +116,8 @@ RUN echo "\
 RUN composer install --no-interaction --optimize-autoloader
 
 # Run artisan migrate and seed
-RUN php /var/www/html/artisan migrate --force --env:staging
-RUN php /var/www/html/artisan db:seed --force --env:staging
+RUN php /var/www/html/artisan migrate --force --env=staging
+RUN php /var/www/html/artisan db:seed --force --env=staging
 
 RUN php artisan storage:link
 
