@@ -63,7 +63,7 @@ RUN echo "\
     APP_NAME='blog'\n\
     APP_ENV='dev'\n\
     APP_KEY='base64:kfznkW1ss6s5c8hCQsYyO/vCjHeFaDSTCqosqIh7dz4='\n\
-    APP_DEBUG=true\n\
+    APP_DEBUG=false\n\
     APP_URL=127.0.0.1\n\
     LOG_CHANNEL=stack\n\
     LOG_LEVEL=debug\n\
