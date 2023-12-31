@@ -60,7 +60,7 @@ RUN service mariadb start && \
 # Create .env file (for flo server deployment)
 RUN echo "\
     APP_NAME='blog'\n\
-    APP_ENV='dev'\n\
+    APP_ENV='staging'\n\
     APP_KEY='base64:kfznkW1ss6s5c8hCQsYyO/vCjHeFaDSTCqosqIh7dz4='\n\
     APP_DEBUG=true\n\
     APP_URL=localhost\n\
@@ -116,8 +116,8 @@ RUN echo "\
 RUN composer install --no-interaction --optimize-autoloader
 
 # Run artisan migrate and seed
-RUN php /var/www/html/artisan migrate --force
-RUN php /var/www/html/artisan db:seed --force
+RUN php /var/www/html/artisan migrate --force --env:staging
+RUN php /var/www/html/artisan db:seed --force --env:staging
 
 RUN php artisan storage:link
 
