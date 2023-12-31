@@ -23,7 +23,7 @@ COPY . /var/www/html/
 RUN mkdir /var/www/log
 
 # Set file permission so have access from browser
-RUN chown -R $user:$user /var/www/html
+RUN chown -R www-data:www-data /var/www/html
 
 # Install system dependencies
 RUN apt-get update && \
@@ -40,6 +40,7 @@ RUN apt-get update && \
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+ENV COMPOSER_ALLOW_SUPERUSER 1
 
 # Install PHP extensions required by your application
 RUN docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd
@@ -119,9 +120,6 @@ RUN php /var/www/html/artisan migrate --force
 RUN php /var/www/html/artisan db:seed --force
 
 RUN php artisan storage:link
-
-# Set file permission so have access from browser
-RUN chown -R www-data:www-data /var/www/html
 
 USER root
 
