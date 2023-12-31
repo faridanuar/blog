@@ -23,7 +23,7 @@ COPY . /var/www/html/
 RUN mkdir /var/www/log
 
 # Set file permission so have access from browser
-RUN chown -R user:user /var/www/html
+RUN chown -R $user:$user /var/www/html
 
 # Install system dependencies
 RUN apt-get update && \
