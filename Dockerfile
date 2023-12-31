@@ -11,7 +11,7 @@ ARG dbpass
 ARG dbname
 
 # Expose ports
-#EXPOSE 9000 80 443
+EXPOSE 9000 80 443 3306
 
 # Set the working directory in the container
 WORKDIR /var/www/html
