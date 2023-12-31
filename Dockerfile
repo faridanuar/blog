@@ -1,6 +1,9 @@
 # Use an official PHP Apache image as the base
 FROM php:8.1-apache
 
+# Set the container name
+LABEL name=blog
+
 USER root
 
 # Arguments defined in docker-compose.yml
@@ -67,7 +70,7 @@ RUN echo "\
     LOG_CHANNEL=stack\n\
     LOG_LEVEL=debug\n\
     DB_CONNECTION=mysql\n\
-    DB_HOST=127.0.0.1\n\
+    DB_HOST=blog\n\
     DB_PORT=3306\n\
     DB_DATABASE=blog\n\
     DB_USERNAME=farid\n\
