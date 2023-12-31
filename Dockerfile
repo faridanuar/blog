@@ -63,11 +63,11 @@ RUN echo "\
     APP_ENV='dev'\n\
     APP_KEY='base64:kfznkW1ss6s5c8hCQsYyO/vCjHeFaDSTCqosqIh7dz4='\n\
     APP_DEBUG=true\n\
-    APP_URL=127.0.0.1\n\
+    APP_URL='https://blog-plus.onrender.com'\n\
     LOG_CHANNEL=stack\n\
     LOG_LEVEL=debug\n\
     DB_CONNECTION=mysql\n\
-    DB_HOST=mysql\n\
+    DB_HOST=127.0.0.1\n\
     DB_PORT=3306\n\
     DB_DATABASE=blog\n\
     DB_USERNAME=farid\n\
