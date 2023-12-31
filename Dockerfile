@@ -104,7 +104,7 @@ RUN echo "\
     " > /var/www/html/.env
 
 # SWITCH to the USER for running Composer and Artisan Commands
-USER $user
+#USER $user
 
 # Debug output section when running dockerfile
 #RUN chown -R $user:$user /var/www/html/
