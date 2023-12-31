@@ -68,7 +68,7 @@ RUN echo "\
     LOG_CHANNEL=stack\n\
     LOG_LEVEL=debug\n\
     DB_CONNECTION=mysql\n\
-    DB_HOST=buildkitsandbox\n\
+    DB_HOST=127.0.0.1\n\
     DB_PORT=3306\n\
     DB_DATABASE=blog\n\
     DB_USERNAME=farid\n\
