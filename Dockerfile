@@ -9,7 +9,9 @@ ARG uid
 ARG dbuser
 ARG dbpass
 ARG dbname
-ENV APP_HOME /var/www/html
+
+# Expose ports
+#EXPOSE 9000 80 443
 
 # Set the working directory in the container
 WORKDIR /var/www/html
@@ -31,6 +33,7 @@ RUN apt-get update && \
     libxml2-dev \
     git \
     curl \
+    cron \
     mariadb-server \
     zip \
     unzip
@@ -40,9 +43,6 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 # Install PHP extensions required by your application
 RUN docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd
-
-# Disable default site
-RUN a2dissite 000-default.conf
 
 # Create system user to run Composer and Artisan Commands
 RUN useradd -G www-data,root -u $uid -d /home/$user $user
@@ -107,9 +107,9 @@ USER $user
 
 # Debug output section when running dockerfile
 #RUN chown -R $user:$user /var/www/html/
-RUN composer --version
-RUN ls -al /var/www/html/
-RUN composer clear-cache
+#RUN composer --version
+#RUN ls -al /var/www/html/
+#RUN composer clear-cache
 
 # Install application dependencies using Composer
 RUN composer install --no-interaction --optimize-autoloader
@@ -120,18 +120,12 @@ RUN php /var/www/html/artisan db:seed --force
 
 USER root
 
-# Expose ports
-EXPOSE 9000 80 443
-
 # Set up Apache virtual host
-COPY docker-compose/apache/apache.conf /etc/apache2/sites-available/apache.conf
-RUN a2ensite apache.conf
+COPY docker-compose/apache/apache.conf /etc/apache2/sites-available/000-default.conf
 
 # Enable apache modules
 RUN a2enmod rewrite
 #RUN a2enmod ssl
-
-RUN service apache2 reload
 
 # Start Apache server
 CMD ["apache2-foreground"]
