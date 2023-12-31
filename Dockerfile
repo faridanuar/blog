@@ -24,6 +24,7 @@ RUN mkdir /var/www/log
 
 # Set file permission so have access from browser
 RUN chown -R www-data:www-data /var/www/html
+RUN chmod -R 755 /var/www/html
 
 # Install system dependencies
 RUN apt-get update && \
@@ -60,7 +61,7 @@ RUN service mariadb start && \
 # Create .env file (for flo server deployment)
 RUN echo "\
     APP_NAME='blog'\n\
-    APP_ENV='staging'\n\
+    APP_ENV='dev'\n\
     APP_KEY='base64:kfznkW1ss6s5c8hCQsYyO/vCjHeFaDSTCqosqIh7dz4='\n\
     APP_DEBUG=true\n\
     APP_URL=127.0.0.1\n\
@@ -116,8 +117,8 @@ RUN echo "\
 RUN composer install --no-interaction --optimize-autoloader
 
 # Run artisan migrate and seed
-RUN php /var/www/html/artisan migrate --force --env=staging
-RUN php /var/www/html/artisan db:seed --force --env=staging
+RUN php /var/www/html/artisan migrate --force --env=dev
+RUN php /var/www/html/artisan db:seed --force --env=dev
 
 RUN php artisan storage:link
 
