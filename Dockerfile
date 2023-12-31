@@ -131,7 +131,7 @@ RUN a2ensite apache.conf
 RUN a2enmod rewrite
 #RUN a2enmod ssl
 
-RUN sudo service apache2 restart
+RUN service apache2 restart
 
 # Start Apache server
 CMD ["apache2-foreground"]
