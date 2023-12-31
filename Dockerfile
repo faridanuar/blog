@@ -66,7 +66,7 @@ RUN echo "\
     APP_URL=localhost\n\
     LOG_CHANNEL=stack\n\
     LOG_LEVEL=debug\n\
-    DB_CONNECTION=mariadb\n\
+    DB_CONNECTION=mysql\n\
     DB_HOST=localhost\n\
     DB_PORT=3306\n\
     DB_DATABASE=blog\n\
