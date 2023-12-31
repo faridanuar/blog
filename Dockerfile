@@ -123,8 +123,10 @@ RUN php artisan storage:link
 
 #USER root
 
-# Set app dir permissions
+# Set app dir permissions & owner
 RUN chmod -R 755 /var/www/html
+RUN chown -R www-data:www-data /var/www/html/storage
+
 
 # Check Apache2 files
 RUN ls /etc/apache2/sites-available
