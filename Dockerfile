@@ -63,11 +63,11 @@ RUN echo "\
     APP_ENV='staging'\n\
     APP_KEY='base64:kfznkW1ss6s5c8hCQsYyO/vCjHeFaDSTCqosqIh7dz4='\n\
     APP_DEBUG=true\n\
-    APP_URL=localhost\n\
+    APP_URL=127.0.0.1\n\
     LOG_CHANNEL=stack\n\
     LOG_LEVEL=debug\n\
     DB_CONNECTION=mysql\n\
-    DB_HOST=localhost\n\
+    DB_HOST=127.0.0.1\n\
     DB_PORT=3306\n\
     DB_DATABASE=blog\n\
     DB_USERNAME=farid\n\
