@@ -120,6 +120,9 @@ RUN php /var/www/html/artisan db:seed --force
 
 USER root
 
+# Check Apache2 files
+RUN ls /etc/apache2
+
 # Set up Apache virtual host
 COPY docker-compose/apache/apache.conf /etc/apache2/sites-available/000-default.conf
 
