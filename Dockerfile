@@ -60,18 +60,18 @@ RUN service mariadb start && \
 # Create .env file (for flo server deployment)
 RUN echo "\
     APP_NAME='blog'\n\
-    APP_ENV='local'\n\
+    APP_ENV='dev'\n\
     APP_KEY='base64:kfznkW1ss6s5c8hCQsYyO/vCjHeFaDSTCqosqIh7dz4='\n\
     APP_DEBUG=true\n\
-    APP_URL='https://blog-dev-xffj.2.sg-1.fl0.io'\n\
+    APP_URL=localhost\n\
     LOG_CHANNEL=stack\n\
     LOG_LEVEL=debug\n\
-    DB_CONNECTION=mysql\n\
+    DB_CONNECTION=mariadb\n\
     DB_HOST=localhost\n\
     DB_PORT=3306\n\
     DB_DATABASE=blog\n\
-    DB_USERNAME=root\n\
-    DB_PASSWORD=\n\
+    DB_USERNAME=farid\n\
+    DB_PASSWORD=secret\n\
     BROADCAST_DRIVER=log\n\
     CACHE_DRIVER=file\n\
     QUEUE_CONNECTION=sync\n\
@@ -121,7 +121,7 @@ RUN php /var/www/html/artisan db:seed --force
 
 RUN php artisan storage:link
 
-USER root
+#USER root
 
 # Check Apache2 files
 RUN ls /etc/apache2/sites-available
