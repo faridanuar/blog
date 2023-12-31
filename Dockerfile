@@ -122,6 +122,7 @@ RUN chown -R www-data:www-data /var/www/html
 # Set up Apache virtual host
 COPY docker-compose/apache/apache.conf /etc/apache2/sites-available/000-default.conf
 RUN a2enmod rewrite
+RUN service apache2 restart
 
 # Start Apache server
 CMD ["apache2-foreground"]
