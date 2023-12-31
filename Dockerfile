@@ -20,6 +20,9 @@ COPY . /var/www/html/
 # Create log dir
 RUN mkdir /var/www/log
 
+# Set file permission so have access from browser
+RUN chown -R www-data:www-data /var/www/html
+
 # Install system dependencies
 RUN apt-get update && \
     apt-get install -y \
@@ -120,9 +123,6 @@ USER root
 # Expose ports
 EXPOSE 9000 80 443
 
-# Set file permission so have access from browser
-RUN chown -R www-data:www-data /var/www/html
-
 # Set up Apache virtual host
 COPY docker-compose/apache/apache.conf /etc/apache2/sites-available/apache.conf
 RUN a2ensite apache.conf
@@ -131,7 +131,7 @@ RUN a2ensite apache.conf
 RUN a2enmod rewrite
 #RUN a2enmod ssl
 
-RUN service apache2 restart
+RUN service apache2 reload
 
 # Start Apache server
 CMD ["apache2-foreground"]
