@@ -53,8 +53,9 @@ RUN mkdir -p /home/$user/.composer && \
 # Install MariaDB & Create Databse for app
 RUN service mariadb start && \
     mysql -e "CREATE DATABASE IF NOT EXISTS $dbname;" && \
-    mysql -e "CREATE USER '$dbuser'@'127.0.0.1' IDENTIFIED BY '$dbpass';" && \
-    mysql -e "GRANT ALL PRIVILEGES ON $dbname.* TO '$dbuser'@'127.0.0.1';" && \
+    mysql -e "CREATE USER '$dbuser'@'localhost' IDENTIFIED BY '$dbpass';" && \
+    #mysql -e "GRANT ALL PRIVILEGES ON $dbname.* TO '$dbuser'@'localhost';" && \
+    mysql -e GRANT ALL PRIVILEGES ON * . * TO '$dbuser'@'localhost'; && \
     mysql -e "FLUSH PRIVILEGES;" && \
     mysql -e "SELECT @@hostname;";
 
