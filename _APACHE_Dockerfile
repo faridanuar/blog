@@ -121,6 +121,7 @@ RUN composer install --no-interaction --optimize-autoloader
 RUN php /var/www/html/artisan migrate --force --env=dev
 RUN php /var/www/html/artisan db:seed --force --env=dev
 
+# Create Laravel storage symbolic link
 RUN php artisan storage:link
 
 #USER root
