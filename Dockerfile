@@ -82,7 +82,7 @@ RUN echo "\
     LOG_CHANNEL=stack\n\
     LOG_LEVEL=debug\n\
     DB_CONNECTION=mysql\n\
-    DB_HOST=localhost\n\
+    DB_HOST=127.0.0.1\n\
     DB_PORT=3306\n\
     DB_DATABASE=blog\n\
     DB_USERNAME=farid\n\
@@ -128,8 +128,8 @@ RUN composer clear-cache
 RUN composer install --optimize-autoloader
 
 # Run artisan migrate and seed
-RUN php /var/www/html/artisan migrate --force --env=dev
-RUN php /var/www/html/artisan db:seed --force --env=dev
+RUN php /var/www/html/artisan migrate --force
+RUN php /var/www/html/artisan db:seed --force
 
 # Create Laravel storage symbolic link
 RUN php artisan storage:link
