@@ -18,6 +18,10 @@ EXPOSE 9000 80 443
 # Set working directory
 WORKDIR /var/www/html
 
+# Create log dir
+RUN echo "" > /var/www/log/nginx/error.log
+RUN echo "" > /var/www/log/nginx/access.log
+
 # Copy the Laravel project files into the image
 COPY . /var/www/html/
 
