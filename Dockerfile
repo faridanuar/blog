@@ -19,6 +19,7 @@ EXPOSE 9000 80 443
 WORKDIR /var/www/html
 
 # Create log dir
+RUN mkdir /var/www/log && /var/www/log/nginx
 RUN echo "" > /var/www/log/nginx/error.log
 RUN echo "" > /var/www/log/nginx/access.log
 
