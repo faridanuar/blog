@@ -3,11 +3,11 @@ FROM php:8.1-fpm
 USER root
 
 # Arguments defined in docker-compose.yml
-ARG user
-ARG uid
-ARG dbuser
-ARG dbpass
-ARG dbname
+ARG USER
+ARG UID
+ARG DBUSER
+ARG DBPASS
+ARG DBNAME
 
 # Set non-interactive environment
 ENV DEBIAN_FRONTEND noninteractive
@@ -48,15 +48,15 @@ RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Create system user to run Composer and Artisan Commands
-RUN useradd -G www-data,root -u $uid -d /home/$user $user
-RUN mkdir -p /home/$user/.composer && \
-    chown -R $user:$user /home/$user
+RUN useradd -G www-data,root -u $UID -d /home/$USER $USER
+RUN mkdir -p /home/$USER/.composer && \
+    chown -R $USER:$USER /home/$USER
 
 # Install MariaDB
 RUN service mariadb start && \
-    mysql -e "CREATE DATABASE IF NOT EXISTS $dbname;" && \
-    mysql -e "CREATE USER '$dbuser'@'localhost' IDENTIFIED BY '$dbpass';" && \
-    mysql -e "GRANT ALL PRIVILEGES ON $dbname.* TO '$dbuser'@'localhost';" && \
+    mysql -e "CREATE DATABASE IF NOT EXISTS $DBNAME;" && \
+    mysql -e "CREATE USER '$DBUSER'@'localhost' IDENTIFIED BY '$DBPASS';" && \
+    mysql -e "GRANT ALL PRIVILEGES ON $DBNAME.* TO '$DBUSER'@'localhost';" && \
     mysql -e "FLUSH PRIVILEGES;"
 
 # Remove existing symbolic link if it exists
@@ -119,7 +119,7 @@ RUN echo "\
     " > /var/www/html/.env
 
 # Debug output section when running dockerfile
-# RUN chown -R $user:$user /var/www/html/
+# RUN chown -R $USER:$USER /var/www/html/
 # RUN composer --version
 # RUN ls -al /var/www/html/
 RUN composer clear-cache
@@ -128,8 +128,8 @@ RUN composer clear-cache
 RUN composer install --optimize-autoloader
 
 # Run artisan migrate and seed
-RUN php /var/www/html/artisan migrate --force
-RUN php /var/www/html/artisan db:seed --force
+RUN php /var/www/html/artisan migrate --force --env=dev
+RUN php /var/www/html/artisan db:seed --force --env=dev
 
 # Create Laravel storage symbolic link
 RUN php artisan storage:link
