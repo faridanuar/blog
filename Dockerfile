@@ -13,16 +13,16 @@ ARG dbname
 ENV DEBIAN_FRONTEND noninteractive
 
 # Expose ports
-EXPOSE 9000 80 443
+EXPOSE 9000 80
 
 # Set working directory
 WORKDIR /var/www/html
 
 # Create log dir
-RUN mkdir /var/www/log
-RUN mkdir /var/www/log/nginx
-RUN echo "" > /var/www/log/nginx/error.log
-RUN echo "" > /var/www/log/nginx/access.log
+# RUN mkdir /var/www/log
+# RUN mkdir /var/www/log/nginx
+# RUN echo "" > /var/www/log/nginx/error.log
+# RUN echo "" > /var/www/log/nginx/access.log
 
 # Copy the Laravel project files into the image
 COPY . /var/www/html/
@@ -63,7 +63,7 @@ RUN service mariadb start && \
 RUN rm -f /etc/nginx/sites-enabled/default
 
 # Overwrite default conf with new file
-COPY docker-compose/nginx/nginx.conf /etc/nginx/sites-available/default
+COPY ./docker-compose/nginx/nginx.conf /etc/nginx/sites-available/default
 
 # Create nginx symbolic link
 RUN ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled
@@ -78,11 +78,11 @@ RUN echo "\
     APP_ENV='dev'\n\
     APP_KEY='base64:kfznkW1ss6s5c8hCQsYyO/vCjHeFaDSTCqosqIh7dz4='\n\
     APP_DEBUG=true\n\
-    APP_URL=127.0.0.1\n\
+    APP_URL=localhost\n\
     LOG_CHANNEL=stack\n\
     LOG_LEVEL=debug\n\
     DB_CONNECTION=mysql\n\
-    DB_HOST=127.0.0.1\n\
+    DB_HOST=localhost\n\
     DB_PORT=3306\n\
     DB_DATABASE=blog\n\
     DB_USERNAME=farid\n\
@@ -119,17 +119,17 @@ RUN echo "\
     " > /var/www/html/.env
 
 # Debug output section when running dockerfile
-#RUN chown -R $user:$user /var/www/html/
-RUN composer --version
-RUN ls -al /var/www/html/
+# RUN chown -R $user:$user /var/www/html/
+# RUN composer --version
+# RUN ls -al /var/www/html/
 RUN composer clear-cache
 
 # Install dependencies and generate the optimized autoload files
 RUN composer install --optimize-autoloader
 
 # Run artisan migrate and seed
-RUN php /var/www/html/artisan migrate --force --env=dev
-RUN php /var/www/html/artisan db:seed --force --env=dev
+RUN php /var/www/html/artisan migrate --force
+RUN php /var/www/html/artisan db:seed --force
 
 # Create Laravel storage symbolic link
 RUN php artisan storage:link
